@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#10162f">
+<title>CreatiAI</title>
+<link rel="manifest" href="manifest.json">
+<style>
+*{box-sizing:border-box}body{margin:0;background:#080d20;color:#f7f8ff;font:16px/1.75 Tahoma,Arial,sans-serif}
+main{max-width:760px;margin:auto;padding:18px}.panel{background:#111b35;border:1px solid #2b3d68;border-radius:20px;padding:20px;margin:14px 0}
+.brand{font-size:29px;font-weight:900}.brand span{color:#9b8afb}.muted{color:#b8c6e5}.tiles{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:10px}.tile{background:#19274a;padding:14px;border-radius:14px;border:1px solid #30436c}
+label{display:block;font-weight:bold;margin:12px 0 5px}input,select,textarea{width:100%;padding:12px;border:1px solid #405681;border-radius:11px;background:#091329;color:white;font:inherit}textarea{min-height:110px}
+button{width:100%;padding:13px;border:0;border-radius:12px;background:linear-gradient(90deg,#7c3aed,#0891b2);color:white;font:inherit;font-weight:bold;margin-top:14px;cursor:pointer}
+.output{display:none;white-space:pre-wrap;overflow-wrap:anywhere;background:#081329;border:1px solid #30436c;border-radius:12px;padding:14px;margin-top:14px}.small{font-size:13px}.pill{display:inline-block;background:#26375d;border-radius:99px;padding:4px 10px;font-size:12px}
+</style>
+</head>
+<body><main>
+<section class="panel">
+<div class="brand">✦ Creati<span>AI</span></div><div class="muted">استوديو المحتوى الإبداعي</div>
+<h1>حوّل فكرتك إلى محتوى بصري</h1>
+<p class="muted">جهّز وصفًا واضحًا لتصميمك الإعلاني. هذه نسخة تجريبية لترتيب الطلبات؛ التوليد الآلي والدفع غير متصلين بعد.</p>
+<div class="tiles"><div class="tile">🎨 <b>صور إعلانية</b><br><span class="muted small">للمنتجات والمحلات</span></div><div class="tile">📱 <b>منشورات</b><br><span class="muted small">لصفحات السوشيال</span></div><div class="tile">🎬 <b>فيديو قصير</b><br><span class="muted small">يضاف بعد ربط خدمة فيديو</span></div></div>
+</section>
+<section class="panel">
+<span class="pill">تجربة تجهيز طلب</span><h2>اطلب تصميمك</h2>
+<label for="kind">نوع الخدمة</label><select id="kind"><option>3 صور إعلانية — سعر تجريبي 100 جنيه</option><option>منشورات سوشيال — السعر بالاتفاق</option><option>فيديو قصير — السعر بالاتفاق</option></select>
+<label for="product">اسم المنتج أو النشاط</label><input id="product" placeholder="مثال: عطر رجالي / مطعم / متجر ملابس">
+<label for="description">وصف التصميم</label><textarea id="description" placeholder="اكتب الألوان والخلفية والفكرة والجمهور المستهدف..."></textarea>
+<label for="style">الأسلوب</label><select id="style"><option>واقعي واحترافي</option><option>فاخر وسينمائي</option><option>بسيط وحديث</option><option>كرتوني</option><option>ألوان جريئة</option></select>
+<label for="ratio">المقاس</label><select id="ratio"><option>مربع 1:1 — منشور</option><option>عمودي 9:16 — ستوري/ريلز</option><option>أفقي 16:9 — غلاف/فيديو</option></select>
+<button id="build">تجهيز وصف الطلب</button><div id="output" class="output"></div><button id="copy" style="display:none;background:#26375d">نسخ الملخص</button>
+<p class="muted small">لا تدخل بيانات بنكية أو كلمات مرور هنا. لا يتم تحصيل أي أموال من هذا النموذج.</p>
+</section>
+<section class="panel"><h2>ما المطلوب قبل الإطلاق؟</h2><ol><li>اختيار مزود توليد صور يسمح بالاستخدام التجاري.</li><li>إعداد اتصال آمن بالتوليد (مفتاح API لا يوضع داخل ملف المتصفح).</li><li>نشر الموقع على استضافة مناسبة.</li><li>اختبار الدفع واستلام الأموال قبل الإعلان المدفوع.</li></ol></section>
+<footer class="muted small" style="text-align:center;padding:12px">CreatiAI — نموذج أولي غير متصل بخدمة توليد أو دفع.</footer>
+</main>
+<script>
+const kind=document.querySelector('#kind'),out=document.querySelector('#output'),copy=document.querySelector('#copy');
+document.querySelector('#build').onclick=()=>{
+ const product=document.querySelector('#product').value.trim(),desc=document.querySelector('#description').value.trim();
+ if(!product||!desc){alert('اكتب اسم المنتج ووصف التصميم أولًا.');return}
+ out.textContent=['طلب CreatiAI','الخدمة: '+kind.value,'المنتج: '+product,'الأسلوب: '+document.querySelector('#style').value,'المقاس: '+document.querySelector('#ratio').value,'الوصف: '+desc,'تنبيه: أكّد السعر وموعد التسليم مع العميل قبل الدفع.'].join('\n');
+ out.style.display='block';copy.style.display='block';
+};
+copy.onclick=async()=>{try{await navigator.clipboard.writeText(out.textContent);alert('تم نسخ الملخص')}catch(e){alert('حدّد الملخص وانسخه يدويًا')}};
+</script></body></html>
